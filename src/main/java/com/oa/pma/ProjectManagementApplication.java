@@ -25,7 +25,7 @@ public class ProjectManagementApplication {
 		SpringApplication.run(ProjectManagementApplication.class, args);
 	}
 	
-	
+	/*
 	@Bean
 	CommandLineRunner runner(){
 		return args -> {
@@ -92,6 +92,6 @@ public class ProjectManagementApplication {
 			projectRepository.save(pro4);
 
 		};
-	}
+	}*/
 
 }
