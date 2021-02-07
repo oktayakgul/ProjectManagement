@@ -7,41 +7,64 @@
 
 <nav th:replace="/layout/layouts :: navbarTop"></nav>
 
-<div>
+<div class="container">
+
+    <h3>Main Dashboard</h3>
+    <hr>
     <h2>Current Projects</h2>
-    <table>
-        <thead>
-        <tr>
-                <th>Name</th><th>Stage</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr th:each="project:${projects}">
-                <td th:text="${project.name}"></td>
-                <td th:text="${project.stage}"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 
-<div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Stage</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="project:${projects}">
+                    <td th:text="${project.name}"></td>
+                    <td th:text="${project.stage}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4" width="100" height="100">
+            <canvas id="mainPieChart"></canvas>
+            <script>
+                var chartData = "[[${projectChartData}]]"
+            </script>
+        </div>
+    </div>
+
+
     <h2>Current Employees</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>First Name</th><th>Last Name</th><th>E-Mail</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="employee:${employees}">
-            <td th:text="${employee.fname}"></td>
-            <td th:text="${employee.lname}"></td>
-            <td th:text="${employee.email}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Project Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employee:${employeeProjectsWithCount}">
+                    <td th:text="${employee.firstName}"></td>
+                    <td th:text="${employee.lastName}"></td>
+                    <td th:text="${employee.projectCount}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
 </div>
 
+<script type="text/javascript" th:src="@{/js/charts.js}"></script>
 
 </body>
 </html>
