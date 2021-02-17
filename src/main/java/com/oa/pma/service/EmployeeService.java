@@ -2,16 +2,25 @@ package com.oa.pma.service;
 
 import com.oa.pma.dao.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService {
 	
-	// Field Injection
+	private IStaffRepository repository;
+	//public EmployeeService(IStaffRepository repository) { // and add @Primary annotation to StaffRepositoryImpl1 class
+	public EmployeeService(@Qualifier ("staffRepositoryImpl1") IStaffRepository repository) {
+		this.repository = repository;
+	}
+	
+	//Field Injection
+	@Qualifier ("staffRepositoryImpl2")
 	@Autowired
-	private EmployeeRepository repository;
-
-	//Construction Injection  // this works because of @Service annotation
+	IStaffRepository repository2;
+	
+	/*
+	//Construction Injection  // this works because of @Service annotation (stereotype)
 	private EmployeeRepository repository2;
 	public EmployeeService(EmployeeRepository repository2) {
 		this.repository2 = repository2;
@@ -23,5 +32,6 @@ public class EmployeeService {
 	public void setRepository3(EmployeeRepository repository3) {
 		this.repository3 = repository3;
 	}
+*/
 	
 }
