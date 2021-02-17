@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.oa.pma","com.oa.utils"}) // you have to put the default package name with scanBasePackages attr.
 public class ProjectManagementApplication {
 	
 	@Autowired
