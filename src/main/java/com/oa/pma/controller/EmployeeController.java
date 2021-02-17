@@ -15,22 +15,8 @@ import java.util.List;
 @RequestMapping("/employee")
 public class EmployeeController {
 	
-	// Field Injection
 	@Autowired
 	private EmployeeRepository repository;
-	
-	//Construction Injection  // this works because of @Controller annotation
-	private EmployeeRepository repository2;
-	public EmployeeController(EmployeeRepository repository2) {
-		this.repository2 = repository2;
-	}
-	
-	//Setter Injection
-	private EmployeeRepository repository3;
-	@Autowired
-	public void setRepository3(EmployeeRepository repository3) {
-		this.repository3 = repository3;
-	}
 	
 	@GetMapping
 	public String getEmployees(Model model){
