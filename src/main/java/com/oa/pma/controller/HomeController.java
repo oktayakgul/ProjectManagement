@@ -8,6 +8,7 @@ import com.oa.pma.dto.EmployeeProjects;
 import com.oa.pma.dto.StageStatus;
 import com.oa.pma.entity.Employee;
 import com.oa.pma.entity.Project;
+import com.oa.pma.sample.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,9 @@ import java.util.List;
 
 @Controller
 public class HomeController {
+	
+	@Autowired
+	Car car;
 	
 	@Autowired
 	private ProjectRepository projectRepository;

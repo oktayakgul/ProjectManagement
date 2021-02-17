@@ -4,6 +4,10 @@ import com.oa.pma.dao.EmployeeRepository;
 import com.oa.pma.dao.ProjectRepository;
 import com.oa.pma.entity.Employee;
 import com.oa.pma.entity.Project;
+import com.oa.pma.sample.Car;
+import com.oa.pma.sample.Door;
+import com.oa.pma.sample.Engine;
+import com.oa.pma.sample.Wheel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,10 +24,18 @@ public class ProjectManagementApplication {
 	
 	@Autowired
 	ProjectRepository projectRepository;
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectManagementApplication.class, args);
 	}
+	
+//	@Bean
+//	public Car newCar() {
+//		Engine d = new Engine();
+//		Door   e = new Door();
+//		Wheel  w = new Wheel();
+//		return new Car(d, e, w);
+//	}
 	
 	/*
 	@Bean
@@ -49,7 +61,8 @@ public class ProjectManagementApplication {
 					+ "for the year and figureout who will be promoted");
 			Project pro3 = new Project("Office Reconstruction", "INPROGRESS", "The office building in Monroe has "
 					+ "been damaged due to hurricane in the region. This needs to be reconstructed");
-			Project pro4 = new Project("Improve Intranet Security", "INPROGRESS", "With the recent data hack, the office"
+			Project pro4 = new Project("Improve Intranet Security", "INPROGRESS", "With the recent data hack, the
+			office"
 					+ "security needs to be improved and proper security team needs to be hired for "
 					+ "implementation");
 
@@ -93,5 +106,5 @@ public class ProjectManagementApplication {
 
 		};
 	}*/
-
+	
 }
