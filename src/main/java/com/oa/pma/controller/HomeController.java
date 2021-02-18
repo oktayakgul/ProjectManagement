@@ -10,6 +10,7 @@ import com.oa.pma.entity.Employee;
 import com.oa.pma.entity.Project;
 import com.oa.pma.sample.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,9 @@ import java.util.List;
 
 @Controller
 public class HomeController {
+	
+	@Value("${version}") //dataFromEnvVar intellij .bash_profile 'i env var olarak goremedi, duzelt.
+	private String appVersion;
 	
 	@Autowired
 	Car car;
@@ -30,6 +34,8 @@ public class HomeController {
 	
 	@GetMapping ("/")
 	public String goHome(Model model) throws JsonProcessingException {
+		model.addAttribute("appVersion", appVersion);
+		
 		List<Project> projectList = projectRepository.findAll();
 		model.addAttribute("projects", projectList);
 		
