@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,25 +17,26 @@ import java.util.List;
 public class Project {
 	
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@SequenceGenerator (name = "project_seq", sequenceName = "project_seq", allocationSize = 1)
+	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "project_seq")
 	private long id;
 	
 	private String name;
 	
 	private String stage; // notstared, inprogress, completed
 	
-	private String desc;
+	private String description;
 	
 	@ManyToMany (cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST},
 			fetch = FetchType.LAZY)
 	@JoinTable (name = "project_employee", joinColumns = @JoinColumn (name = "project_id"), inverseJoinColumns = @JoinColumn(name = "employee_id"))
 	private List<Employee> employees;
 	
-	public Project(String name, String stage, String desc) {
+	public Project(String name, String stage, String description) {
 		super();
 		this.name = name;
 		this.stage = stage;
-		this.desc = desc;
+		this.description = description;
 	}
 	
 	public Project() {
@@ -69,12 +70,12 @@ public class Project {
 		this.stage = stage;
 	}
 	
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
 	
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	public List<Employee> getEmployees() {

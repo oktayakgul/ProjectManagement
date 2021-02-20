@@ -10,13 +10,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import java.util.List;
 
 @Entity
 public class Employee {
 	
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@SequenceGenerator (name = "employee_seq", sequenceName = "employee_seq", allocationSize = 1)
+	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "employee_seq") //sequence faster than identity (hibernate batch updates)
 	private long id;
 	
 	private String fname;
