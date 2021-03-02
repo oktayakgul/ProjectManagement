@@ -1,7 +1,9 @@
 package com.oa.pma.controller;
 
 import com.oa.pma.dao.EmployeeRepository;
+import com.oa.pma.dto.EmployeeProjects;
 import com.oa.pma.entity.Employee;
+import com.oa.pma.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +18,11 @@ import java.util.List;
 public class EmployeeController {
 	
 	@Autowired
-	private EmployeeRepository repository;
+	EmployeeService employeeService;
 	
 	@GetMapping
 	public String getEmployees(Model model){
-		List<Employee> employees = repository.findAll();
+		List<Employee> employees = employeeService.findAll();
 		model.addAttribute("employees",employees);
 		return "/employee/list";
 	}
@@ -34,9 +36,12 @@ public class EmployeeController {
 	
 	@PostMapping ("/save")
 	public String createEmployee(Employee employee){
-		repository.save(employee);
+		employeeService.save(employee);
 		return "redirect:/employee";
 	}
 	
 	
+	public List<EmployeeProjects> employeeProjects() {
+		return employeeService.employeeProjects();
+	}
 }

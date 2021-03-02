@@ -9,6 +9,8 @@ import com.oa.pma.dto.StageStatus;
 import com.oa.pma.entity.Employee;
 import com.oa.pma.entity.Project;
 import com.oa.pma.sample.Car;
+import com.oa.pma.service.EmployeeService;
+import com.oa.pma.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -27,22 +29,22 @@ public class HomeController {
 	Car car;
 	
 	@Autowired
-	private ProjectRepository projectRepository;
+	ProjectController projectController;
 	
 	@Autowired
-	private EmployeeRepository employeeRepository;
+	EmployeeController employeeController;
 	
 	@GetMapping ("/")
 	public String goHome(Model model) throws JsonProcessingException {
 		model.addAttribute("appVersion", appVersion);
 		
-		List<Project> projectList = projectRepository.findAll();
+		List<Project> projectList = projectController.findAll();
 		model.addAttribute("projects", projectList);
 		
-		List<EmployeeProjects> employeeProjects = employeeRepository.employeeProjects();
+		List<EmployeeProjects> employeeProjects = employeeController.employeeProjects();
 		model.addAttribute("employeeProjectsWithCount", employeeProjects);
 		
-		List<StageStatus> stageStatus = projectRepository.getStageStatus();
+		List<StageStatus> stageStatus = projectController.getStageStatus();
 		ObjectMapper objectMapper = new ObjectMapper();
 		String chartData = objectMapper.writeValueAsString(stageStatus);
 		//["inprogress",1],["completed",2],["notstared",1]
