@@ -1,7 +1,9 @@
 package com.oa.pma.logging;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -22,12 +24,27 @@ public class ApplicationLoggerAspect {
 		// empty method just to name the location specified in the pointcut
 	}
 	
-	@After("definePackagePointcuts()") // at Before you dont have any info, args
-	public void logBefore(JoinPoint jp){
-		log.debug("\n-----------------------------After------------------------------\n {}.{} with arguments [s] = {}",
+	@Around ("definePackagePointcuts()") // at Before you dont have any info, args
+	public Object logBefore(ProceedingJoinPoint jp){
+		log.debug("\n-----------------------------Before-----------------------------\n {}.{} with arguments [s] = {}",
 				jp.getSignature().getDeclaringTypeName(),
 				jp.getSignature().getName(),
 				Arrays.toString(jp.getArgs()));
 		log.debug("\n----------------------------------------------------------------\n");
+		
+		Object o = null;
+		try {
+			o = jp.proceed();
+		} catch (Throwable throwable) {
+			throwable.printStackTrace();
+		}
+		
+		log.debug("\n-----------------------------After------------------------------\n {}.{} with arguments [s] = {}",
+				jp.getSignature().getDeclaringTypeName(),
+				jp.getSignature().getName(),
+				jp.getArgs()[0]); //burası daha anlaşılır olarak düzeltilebilir. array tostring override et
+		log.debug("\n----------------------------------------------------------------\n");
+		
+		return o;
 	}
 }
