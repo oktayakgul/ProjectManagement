@@ -42,7 +42,7 @@ public class ApplicationLoggerAspect {
 		log.debug("\n-----------------------------After------------------------------\n {}.{} with arguments [s] = {}",
 				jp.getSignature().getDeclaringTypeName(),
 				jp.getSignature().getName(),
-				jp.getArgs()[0]); //burası daha anlaşılır olarak düzeltilebilir. array tostring override et
+				(jp.getArgs().length != 0 ? jp.getArgs()[0] : "null here")); //burası daha anlaşılır olarak düzeltilebilir. array tostring override et
 		log.debug("\n----------------------------------------------------------------\n");
 		
 		return o;

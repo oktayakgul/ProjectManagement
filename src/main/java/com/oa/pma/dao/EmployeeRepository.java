@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-@Profile("prod")
+//@Repository
+//@Profile("prod")
 public interface EmployeeRepository extends CrudRepository<Employee,Long> {
 	
 	@Override

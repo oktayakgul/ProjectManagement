@@ -28,4 +28,15 @@ public class ProjectRepositoryIntegrationTest { //en yakin  application.properti
 		assertEquals(5, projectRepository.findAll().size());
 		
 	}
+	
+	@Test
+	public void t1(){
+		System.out.println("--------------------------" + this.getClass().getName());
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }
