@@ -28,6 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		        .withUser("user1").password("pass1").roles("SLAVE")
 		    .and()
 				.withUser("user2").password("pass2").roles("SLAVE");
+	
+//		customize log-in
+//		auth.jdbcAuthentication().dataSource(dataSource)
+//		    .usersByUsernameQuery("select username, password, enabled from USERS where username = ?")
+//		    .authoritiesByUsernameQuery("select username, authority from authorities where username = ?");
 	}
 	
 	@Bean
@@ -40,6 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		    .antMatchers("/employee/new").hasRole("MASTER")
+		    .antMatchers("/project/new").hasRole("MASTER")
+		    .antMatchers("/h2_console/**").permitAll()
 			.antMatchers("/").authenticated()
 		.and().formLogin();
 		
