@@ -1,6 +1,9 @@
 package com.oa.pma.logging;
 
-import org.aspectj.lang.JoinPoint;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
@@ -11,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 @Aspect
@@ -38,13 +42,23 @@ public class ApplicationLoggerAspect {
 		} catch (Throwable throwable) {
 			throwable.printStackTrace();
 		}
-		
 		log.debug("\n-----------------------------After------------------------------\n {}.{} with arguments [s] = {}",
 				jp.getSignature().getDeclaringTypeName(),
 				jp.getSignature().getName(),
-				(jp.getArgs().length != 0 ? jp.getArgs()[0] : "null here")); //burası daha anlaşılır olarak düzeltilebilir. array tostring override et
+				(jp.getArgs().length != 0 ? (jp.getArgs()[0]) : "null here")); //burası daha anlaşılır olarak düzeltilebilir. array tostring override et
 		log.debug("\n----------------------------------------------------------------\n");
 		
 		return o;
+	}
+	
+	public static String objectToJson(Object value){
+		ObjectMapper mapper = new ObjectMapper();
+		String str = null;
+		try {
+			str = mapper.writeValueAsString(value);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return str;
 	}
 }

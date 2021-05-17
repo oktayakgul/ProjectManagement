@@ -7,7 +7,7 @@
 <nav th:replace="/layout/layouts :: navbarTop"></nav>
 
 <div class="container">
-    <form action="/employee/save" th:object="${employee}" method="POST">
+    <form action="@{/employee/save}" th:object="${employee}" method="POST">
         <input type="text" placeholder="First Name" th:field="${employee.fname}">
         <input type="text" placeholder="Last Name" th:field="${employee.lname}">
         <input type="text" placeholder="E-Mail" th:field="${employee.email}">
