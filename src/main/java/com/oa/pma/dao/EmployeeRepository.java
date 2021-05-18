@@ -21,4 +21,5 @@ public interface EmployeeRepository extends CrudRepository<Employee,Long> {
 			"group by e.FNAME ,e.LNAME order by 3 desc")
 	List<EmployeeProjects> employeeProjects();
 	
+	Employee findByEmail(String s); // spring understand
 }

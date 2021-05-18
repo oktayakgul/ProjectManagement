@@ -1,6 +1,7 @@
 package com.oa.pma.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.oa.pma.validatiton.UniqueValue;
 import com.sun.istack.NotNull;
 
 import javax.persistence.CascadeType;
@@ -35,7 +36,8 @@ public class Employee {
 	
 	
 	@Email
-	@Column(unique = true, nullable = false)
+	@Column( nullable = false) // unique = true,
+	@UniqueValue
 	private String email;
 	
 	@ManyToMany (cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST},
