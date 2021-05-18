@@ -51,11 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests() // it's ordered, so it's sorted, special districtions first
-		    .antMatchers("/employee/new").hasRole("MASTER") // expects ROLE_MASTER
-		    .antMatchers("/employee/save").hasRole("MASTER")
+//		    .antMatchers("/employee/new").hasRole("MASTER") // expects ROLE_MASTER
+//		    .antMatchers("/employee/save").hasRole("MASTER")
 		    //.antMatchers("/project/new").hasAnyAuthority("MASTER") // checks the "MASTER" word
-		    .antMatchers("/project/new").hasAnyAuthority("MASTER")
-		    .antMatchers("/project/save").hasAnyAuthority("MASTER")
+		    //.antMatchers("/project/new").hasAnyAuthority("MASTER")
+		    //.antMatchers("/project/save").hasAnyAuthority("MASTER")
 		    //.antMatchers("/h2_console/**").permitAll()
 			.antMatchers("/", "/**").permitAll()
 			.and() //.formLogin().loginPage("/login-page"); // custom login page

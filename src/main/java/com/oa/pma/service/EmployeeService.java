@@ -19,12 +19,20 @@ public class EmployeeService {
 		return repository.findAll();
 	}
 	
-	public void save(Employee employee) {
-		repository.save(employee);
+	public Employee findById(Long id){
+		return repository.findById(id).get();
+	}
+	
+	public Employee save(Employee employee) {
+		return repository.save(employee);
 	}
 	
 	public List<EmployeeProjects> employeeProjects() {
 		return repository.employeeProjects();
+	}
+	
+	public void deleteById(Long id){
+		repository.deleteById(id);
 	}
 	
 /*

@@ -1,0 +1,7 @@
+
+- Rest API
+use nouns not verbs, lower case, just letters,
+    /employee/4
+    /employee/12/project
+    /employee/12/project/5
+
