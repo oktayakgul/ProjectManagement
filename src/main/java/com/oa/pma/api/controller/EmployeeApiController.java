@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,18 +38,18 @@ public class EmployeeApiController {
 	
 	@PostMapping(consumes = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Employee create(@RequestBody Employee employee){
+	public Employee create(@RequestBody @Valid Employee employee){
 		return service.save(employee);
 	}
 	
 	@PutMapping(consumes = "application/json") // actually consumes = "application/json" comes by default no need for json
 	@ResponseStatus(HttpStatus.OK)
-	public Employee update(@RequestBody Employee employee){
+	public Employee update(@RequestBody @Valid Employee employee){
 		return service.save(employee);
 	}
 	
 	@PatchMapping(path = "/{id}", consumes = "application/json") // cascading method
-	public Employee partialUpdate(@PathVariable("id") long id, @RequestBody Employee patchEmployee){
+	public Employee partialUpdate(@PathVariable("id") long id, @RequestBody @Valid Employee patchEmployee){
 		Employee employee = service.findById(id);
 		
 		if(patchEmployee.getEmail() != null)
