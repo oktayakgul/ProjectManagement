@@ -22,7 +22,15 @@ public class ProjectService {
 		return repository.getStageStatus();
 	}
 	
-	public void save(Project project) {
-		repository.save(project);
+	public Project save(Project project) {
+		return repository.save(project);
+	}
+	
+	public Project findById(Long id) {
+		return repository.findById(id).get();
+	}
+	
+	public void deleteById(Long id) {
+		repository.deleteById(id);
 	}
 }
