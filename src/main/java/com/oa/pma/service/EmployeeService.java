@@ -36,6 +36,10 @@ public class EmployeeService {
 		repository.deleteById(id);
 	}
 	
+	public void delete(Employee employee) {
+		repository.delete(employee);
+	}
+	
 /*
 	private IStaffRepository repository;
 	//public EmployeeService(IStaffRepository repository) { // and add @Primary annotation to StaffRepositoryImpl1 class

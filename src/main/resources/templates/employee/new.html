@@ -7,7 +7,10 @@
 <nav th:replace="/layout/layouts :: navbarTop"></nav>
 
 <div class="container">
-    <form action="@{/employee/save}" th:object="${employee}" method="POST">
+    <form action="/employee/save" th:object="${employee}" method="POST">
+<!--        This hidden input will be used to bind to the employee that was clicked on (used for updates) if you dont use hidden input it wil create a new one-->
+        <input type="hidden" th:field="${employee.id}">
+
         <input type="text" placeholder="First Name" th:field="${employee.fname}">
         <input type="text" placeholder="Last Name" th:field="${employee.lname}">
         <input type="text" placeholder="E-Mail" th:field="${employee.email}">

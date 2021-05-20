@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -40,6 +41,19 @@ public class EmployeeController {
 		return "redirect:/employee";
 	}
 	
+	@GetMapping("/update")
+	public String displayEmployeeUpdateForm(@RequestParam("id") long theId, Model model){
+		Employee employee = employeeService.findById(theId);
+		model.addAttribute("employee", employee); // bind the employee to the form
+		return "/employee/new";
+	}
+	
+	@GetMapping("/delete")
+	public String deleteEmployee(@RequestParam("id") long theId){
+		Employee employee = employeeService.findById(theId);
+		employeeService.delete(employee);
+		return "redirect:/employee";
+	}
 	
 	public List<EmployeeProjects> employeeProjects() {
 		return employeeService.employeeProjects();
