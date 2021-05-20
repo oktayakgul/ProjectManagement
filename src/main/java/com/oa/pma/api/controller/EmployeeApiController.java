@@ -1,9 +1,11 @@
 package com.oa.pma.api.controller;
 
+import com.oa.pma.dao.EmployeeRepository;
 import com.oa.pma.entity.Employee;
 import com.oa.pma.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController
@@ -25,6 +29,10 @@ public class EmployeeApiController {
 	
 	@Autowired
 	EmployeeService service;
+	
+	
+	@Autowired
+	EmployeeRepository employeeRepository;
 	
 	@GetMapping
 	public List<Employee> getEmployees(){
@@ -71,4 +79,12 @@ public class EmployeeApiController {
 		
 		}
 	}
+	
+	@GetMapping(params = {"page", "size"})
+	@ResponseStatus(HttpStatus.OK)
+	public Iterable<Employee> getPaginatedEmployees(@RequestParam("page") int page , @RequestParam ("size") int size){
+		return employeeRepository.findAll(PageRequest.of(page, size));
+	}
+	// test : http://localhost:8080/api/employee?page=0&size=3
+	
 }
