@@ -11,6 +11,8 @@
 <div class="container">
     <form action="/project/save" th:object="${project}" method="POST">
 
+        <input type="hidden" th:field="${project.id}"> <!-- for binding -->
+
         <input type="text" placeholder="Project Name" th:field="*{name}">
 
         <select th:field="${project.stage}">
