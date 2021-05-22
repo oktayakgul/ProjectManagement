@@ -1,6 +1,7 @@
 package com.oa.pma.service;
 
 import com.oa.pma.dao.ProjectRepository;
+import com.oa.pma.dto.ProjectDates;
 import com.oa.pma.dto.StageStatus;
 import com.oa.pma.entity.Project;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,9 @@ public class ProjectService {
 	
 	public void deleteById(Long id) {
 		repository.deleteById(id);
+	}
+	
+	public List<ProjectDates> getProjectDates(){
+		return  repository.getProjectDates();
 	}
 }

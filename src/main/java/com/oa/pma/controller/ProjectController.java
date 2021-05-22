@@ -1,7 +1,10 @@
 package com.oa.pma.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oa.pma.dao.EmployeeRepository;
 import com.oa.pma.dao.ProjectRepository;
+import com.oa.pma.dto.ProjectDates;
 import com.oa.pma.dto.StageStatus;
 import com.oa.pma.entity.Employee;
 import com.oa.pma.entity.Project;
@@ -10,11 +13,13 @@ import com.oa.pma.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -44,7 +49,10 @@ public class ProjectController {
 	}
 	
 	@PostMapping ("/save")
-	public String createProject(Project project, Model model) {
+	public String createProject(@Valid Project project, Model model, Errors errors) {
+		if(errors.hasErrors())
+			return "project/new";
+		
 		projectService.save(project);
 		/*Iterable<Employee> chosenEmployees = employeeRepository.findAllById(employees);
 		for (Employee chosenEmployee : chosenEmployees) {
@@ -76,5 +84,21 @@ public class ProjectController {
 	
 	public List<StageStatus> getStageStatus() {
 		return projectService.getStageStatus();
+	}
+	
+	
+	@GetMapping("/timeline")
+	public String displayProjectTimeLines(Model model){
+		List<ProjectDates> projectDatesList = projectService.getProjectDates();
+		String listJSON = null;
+		try {
+			listJSON = new ObjectMapper().writeValueAsString(projectDatesList);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("-----------------timeline data----------------");
+		System.out.println(listJSON);
+		model.addAttribute("projectDatesList", listJSON);
+		return "/project/timeline";
 	}
 }

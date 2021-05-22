@@ -15,6 +15,7 @@
 
         <div class="form-group row">
             <input type="text" placeholder="Project Name" th:field="*{name}">
+            <span th:if="${#fields.hasErrors('name')}" th:errors="${project.name}"></span>
         </div>
 
         <div class="form-group row">
@@ -27,16 +28,36 @@
 
         <div class="form-group row">
             <textarea type="text" placeholder="Enter Project Description" th:field="${project.description}"></textarea>
+            <span th:if="${#fields.hasErrors('description')}" th:errors="${project.description}"></span>
+        <div class="form-group row">
 
+        </div>
             <select th:field="*{employees}" multiple="multiple">
                 <option th:each="employee : ${allEmployees}"
                         th:value="${employee.id}"
                         th:text="${employee.fname}"></option>
             </select>
     <!--                    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />-->
-
-            <button class="btn btn-info col-2" type="submit">Create Project</button>
         </div>
+
+        Project Start Date
+        <div class="form-group row">
+            <input id="dpStart" type="text" class="mb-4 col-2 col-xs-4" value="Start Date" th:field="${project.startDate}">
+            <span th:if="${#fields.hasErrors('startDate')}" th:errors="${project.startDate}"></span>
+        </div>
+
+        Project End Date
+        <div class="form-group row">
+            <input id="dpEnd" type="text" class="mb-4 col-2 col-xs-4" value="End Date" th:field="${project.endDate}">
+            <span th:if="${#fields.hasErrors('endDate')}" th:errors="${project.endDate}"></span>
+        </div>
+
+        <script type="text/javascript">
+            $('#dpStart').datepicker();
+            $('#dpEnd').datepicker();
+        </script>
+
+        <button class="btn btn-info col-2" type="submit">Create Project</button>
     </form>
 </div>
 

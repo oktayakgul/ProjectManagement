@@ -12,7 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -23,10 +26,15 @@ public class Project {
 	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "project_seq")
 	private long id;
 	
+	@NotBlank
+	@Size (min=2, max= 50)
 	private String name;
 	
+	@NotBlank
 	private String stage; // notstared, inprogress, completed
 	
+	@NotBlank
+	@Size (min=2, max= 500)
 	private String description;
 	
 	@ManyToMany (cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST},
@@ -34,6 +42,11 @@ public class Project {
 	@JoinTable (name = "project_employee", joinColumns = @JoinColumn (name = "project_id"), inverseJoinColumns = @JoinColumn(name = "employee_id"))
 	@JsonIgnore
 	private List<Employee> employees;
+	
+	
+	private Date startDate;
+	
+	private Date endDate;
 	
 	public Project(String name, String stage, String description) {
 		super();
@@ -87,6 +100,22 @@ public class Project {
 	
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
+	}
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+	
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	
+	public Date getEndDate() {
+		return endDate;
+	}
+	
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	
 	//convenience method
