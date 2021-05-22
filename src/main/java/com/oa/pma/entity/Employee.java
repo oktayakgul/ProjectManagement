@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -27,15 +28,16 @@ public class Employee {
 	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "employee_seq") //sequence faster than identity (hibernate batch updates)
 	private long id;
 	
-	@NotNull
+	@NotBlank(message = "must give a first name")
 	@Size (min=2, max= 50)
 	private String fname;
 	
-	@NotNull
+	@NotBlank(message = "must give a last name")
 	private String lname;
 	
 	
-	@Email
+	@NotBlank(message = "not black email address")
+	@Email(message = "must be a valid email address")
 	@Column( nullable = false) // unique = true,
 	@UniqueValue
 	private String email;

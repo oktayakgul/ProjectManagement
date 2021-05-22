@@ -7,31 +7,36 @@
 <body>
 
 <nav th:replace="/layout/layouts :: navbarTop"></nav>
-
+<br>
 <div class="container">
     <form action="/project/save" th:object="${project}" method="POST">
 
         <input type="hidden" th:field="${project.id}"> <!-- for binding -->
 
-        <input type="text" placeholder="Project Name" th:field="*{name}">
+        <div class="form-group row">
+            <input type="text" placeholder="Project Name" th:field="*{name}">
+        </div>
 
-        <select th:field="${project.stage}">
-            <option th:value="NOTSTARTED"> Not Started</option>
-            <option th:value="INPROGRESS"> In Progress</option>
-            <option th:value="COMPLETED"> Completed</option>
-        </select>
+        <div class="form-group row">
+            <select th:field="${project.stage}">
+                <option th:value="NOTSTARTED"> Not Started</option>
+                <option th:value="INPROGRESS"> In Progress</option>
+                <option th:value="COMPLETED"> Completed</option>
+            </select>
+        </div>
 
-        <textarea type="text" placeholder="Enter Project Description" th:field="${project.description}"></textarea>
+        <div class="form-group row">
+            <textarea type="text" placeholder="Enter Project Description" th:field="${project.description}"></textarea>
 
-        <select th:field="*{employees}" multiple="multiple">
-            <option th:each="employee : ${allEmployees}"
-                    th:value="${employee.id}"
-                    th:text="${employee.fname}"></option>
-        </select>
-<!--                    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />-->
+            <select th:field="*{employees}" multiple="multiple">
+                <option th:each="employee : ${allEmployees}"
+                        th:value="${employee.id}"
+                        th:text="${employee.fname}"></option>
+            </select>
+    <!--                    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />-->
 
-        <button type="submit">Create Project</button>
-
+            <button class="btn btn-info col-2" type="submit">Create Project</button>
+        </div>
     </form>
 </div>
 
